@@ -361,6 +361,8 @@ public class RegiosBlockListener extends BlockListener {
 		} else {
 			r = currentRegionSet.get(0);
 		}
+		
+		p.sendMessage("Building in region : " + r.getName());
 
 		if (r.getItems().isEmpty() && r.is_protectionPlace()) {
 			if (r.canBuild(p, r)) {

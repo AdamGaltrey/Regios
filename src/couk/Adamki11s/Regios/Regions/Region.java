@@ -3,6 +3,7 @@ package couk.Adamki11s.Regios.Regions;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -83,16 +84,17 @@ public class Region extends PermChecks implements Checks {
 	private ExtrasCryptography exCrypt = new ExtrasCryptography();
 
 	public Region(String owner, String name, Location l1, Location l2, World world, Player p, boolean save) {
+		if (world == null || l1 == null || l2 == null) {
+			Logger.getLogger("Regios").info("[Regios] Failed to load region : " + name + ". Could not read location(s) and/or world.");
+			return;
+		}
 		this.owner = owner;
 		this.name = name;
 		this.l1 = new RegionLocation(l1.getWorld(), l1.getX(), l1.getY(), l1.getZ());
 		this.l2 = new RegionLocation(l2.getWorld(), l2.getX(), l2.getY(), l2.getZ());
 		RegionLocation rl1 = new RegionLocation(l1.getWorld(), l1.getX(), l1.getY(), l1.getZ()), rl2 = new RegionLocation(l2.getWorld(), l2.getX(), l2.getY(), l2.getZ());
-		if (world != null) {
-			this.world = world.getName();
-		} else {
-			this.world = Bukkit.getServer().getWorlds().get(0).getName();
-		}
+
+		this.world = world.getName();
 
 		if (save) {
 			RegionCreateEvent event = new RegionCreateEvent("RegionCreateEvent");
@@ -180,10 +182,9 @@ public class Region extends PermChecks implements Checks {
 		return new Configuration(new File("plugins" + File.separator + "Regios" + File.separator + "Database" + File.separator + this.name + File.separator + this.name
 				+ ".rz"));
 	}
-	
-	public File getRawConfigFile(){
-		return new File(("plugins" + File.separator + "Regios" + File.separator + "Database" + File.separator + this.name + File.separator + this.name
-				+ ".rz"));
+
+	public File getRawConfigFile() {
+		return new File(("plugins" + File.separator + "Regios" + File.separator + "Database" + File.separator + this.name + File.separator + this.name + ".rz"));
 	}
 
 	public File getExceptionDirectory() {
@@ -193,8 +194,8 @@ public class Region extends PermChecks implements Checks {
 	public File getBackupsDirectory() {
 		return new File("plugins" + File.separator + "Regios" + File.separator + "Database" + File.separator + this.name + File.separator + "Backups");
 	}
-	
-	public File getDirectory(){
+
+	public File getDirectory() {
 		return new File("plugins" + File.separator + "Regios" + File.separator + "Database" + File.separator + this.name);
 	}
 
@@ -889,7 +890,6 @@ public class Region extends PermChecks implements Checks {
 		return message;
 	}
 
-	
 	public String getWorld() {
 		return world;
 	}

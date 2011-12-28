@@ -19,7 +19,7 @@ public class VersionPatcher {
 	static final File patch4071F = new File(root + File.separator + "Versions" + File.separator + "Version Tracker" + File.separator + "4.0.71.rv");
 
 	public static void runPatch(String version) throws IOException {
-		if (version.equalsIgnoreCase("4.0.80")) {
+		if (version.equalsIgnoreCase("5.0.01")) {
 			if (!patch4057F.exists()) {
 				patch4057(version);
 				patch4057F.createNewFile();

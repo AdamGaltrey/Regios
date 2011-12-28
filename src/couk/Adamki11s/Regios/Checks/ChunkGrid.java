@@ -33,6 +33,12 @@ public class ChunkGrid {
 	
 	public ChunkGrid(Location l1, Location l2, Region r){ //Initialises the chunk grid for the given region
 		World w = l1.getWorld();
+		if(w == null){
+			w = l2.getWorld();
+		}
+		if(w == null || l1 == null || l2 == null){
+			return;
+		}
 		region = r;
 		chunkGrid.add(w.getChunkAt(l1));
 		chunkGrid.add(w.getChunkAt(l2));

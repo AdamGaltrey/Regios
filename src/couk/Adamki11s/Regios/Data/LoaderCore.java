@@ -147,6 +147,7 @@ public class LoaderCore {
 		} else {
 			if (!silent) {
 				log.info(prefix + " No Regions to load.");
+				return;
 			}
 		}
 		for (File root : children) {
